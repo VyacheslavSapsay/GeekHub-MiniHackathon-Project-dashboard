@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
   root 'users#index'
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks"}
 
-  resources :categories
+  resources :categories, :posts
+
+  resources :users do
+    collection do
+      get 'choose_categories'
+      post 'choose_categories'
+    end
+  end
+
 
 end

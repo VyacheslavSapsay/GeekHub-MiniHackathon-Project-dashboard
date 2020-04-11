@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_11_103439) do
+ActiveRecord::Schema.define(version: 2020_04_11_104954) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_04_11_103439) do
     t.string "name"
     t.text "image"
     t.boolean "admin", default: false
+    t.integer "sign_in_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
