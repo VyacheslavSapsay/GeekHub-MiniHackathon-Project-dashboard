@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :redirect, only: %w[choose_categories]
+  after_action :redirect, only: %w[choose_categories]
 
   def choose_categories
     @categories = Category.all

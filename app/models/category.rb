@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-  has_many :category_users
-  has_many :users, through: :category_users
+  has_many :post_categories
+  has_many :posts, through: :post_categories
 end

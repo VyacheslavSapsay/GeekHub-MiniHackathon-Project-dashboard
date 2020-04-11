@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  require 'open-uri'
   before_action :set_post, only: [ :show, :edit, :update, :destroy]
 
   def index
@@ -14,6 +15,11 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    row_post = Nokogiri::HTML(open(params.dig(:post, :url)).read)
+    @post.title = row_post.title
+    if params.dig(:post, :url).include?("habr")
+      @post.body = row_post.at_css('[id="post-content-body"]').text
+    end
     if @post.save
       redirect_to @post, success: "Новая статья успешно создана"
     else
@@ -43,6 +49,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:url, category_id: [])
   end
 end
