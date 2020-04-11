@@ -1,0 +1,12 @@
+<div class="container">
+  <p class="pull-right"><%= "Loged as #{current_user.email}" if current_user %></p>
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <% unless current_user %>
+    <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+  <% else %>
+    <%= current_user[:name] %>
+    <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "pull-right" %>
+  <% end %>
+  <%= link_to "Create Category", new_category_path, class: "pull-right" if current_user.admin? %>
+</div>
