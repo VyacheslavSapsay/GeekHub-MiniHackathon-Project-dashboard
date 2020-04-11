@@ -19,6 +19,8 @@ class PostsController < ApplicationController
     @post.title = row_post.title
     if params.dig(:post, :url).include?("habr")
       @post.body = row_post.at_css('[id="post-content-body"]').text
+    elsif params.dig(:post, :url).include?("tsn")
+      @post.body = row_post.at_css('[class="e-content"]')
     end
     if @post.save
       redirect_to @post, success: "Новая статья успешно создана"
