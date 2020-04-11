@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find_by_id(params[:id])
+    @posts = Post.where(user_id: @user.id)
+  end
+
   def redirect
     redirect_to root_path if current_user.categories.count > 0
   end

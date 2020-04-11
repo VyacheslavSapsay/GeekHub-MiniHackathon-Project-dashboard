@@ -3,7 +3,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: [ :show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = if params[:search]
+           Post.search(params[:search]).order('created_at DESC')
+         else
+           Post.all.order('title asc')
+         end
   end
 
   def show
@@ -24,6 +28,7 @@ class PostsController < ApplicationController
     elsif params.dig(:post, :url).include?("telegra")
       @post.body = row_post.at_css('[id="_tl_editor"]')
     end
+    @post.user_id = current_user.id
     if @post.save
       redirect_to @post, success: "Новая статья успешно создана"
     else
@@ -53,6 +58,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:url, category_id: [])
+    params.require(:post).permit(:url, category_ids: [])
   end
 end

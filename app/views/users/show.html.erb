@@ -1,0 +1,13 @@
+<div class="container">
+  <% if @user.id = current_user.id %>
+    <h2>My posts:</h2>
+    <% @posts.each do |post| %>
+      <%= link_to post.title, post_path(post), class: "posts-user" %>
+    <% end %>
+  <% else %>
+    <h2>User posts:</h2>
+    <% @posts.each do |post| %>
+      <%= link_to post.title, post_path(post), class: "posts-user" %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,5 @@
+<div class="container">
+  <% @category.posts.each do |post| %>
+    <p><%= link_to post.title, post_path(post), class: 'category-show' %></p>
+  <% end %>
+</div>
